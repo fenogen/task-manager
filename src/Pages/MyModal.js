@@ -10,17 +10,20 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 const MyModal = ({ isOpen, isClose, idEdit}) => {
-
     const dispatch = useDispatch();
+    
+    // useRef - допоміг щоб інпути очищались після відправки форми
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const checkBoxRef = useRef();
 
     const tasksArr = useSelector(state => state.tasks.tasks);
     let task = []
+    let titleName = ''
 
     if (idEdit) {
         task = tasksArr.find(task => task.id === idEdit);
+        titleName = task.title
     }
     
     const handleSubmit = (event) => {
@@ -63,7 +66,7 @@ const MyModal = ({ isOpen, isClose, idEdit}) => {
                     placeholder="My task #1"
                     autoFocus
                     minLength={6}
-                    defaultValue={idEdit && task.title}
+                    defaultValue={idEdit ? titleName : null}
                     ref={firstNameRef}
                   />
                 </Form.Group>

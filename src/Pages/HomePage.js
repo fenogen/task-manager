@@ -30,17 +30,14 @@ const radios = [
 // #2) Modal window:
 const [show, setShow] = useState(false);
 const [idEdit, setIdEdit] = useState('');
-const [value, setValue] = useState('');
 
-const defValue = () => setValue('');
 const handleClose = () => setShow(false);
 const handleShow = (id) => {
     setShow(true)
-    if (typeof(id) === 'number') {
+    if (id.length) {
         setIdEdit(id)
-    }
-    if (typeof(id) === 'object') {
-        setIdEdit('')
+    } else {
+      setIdEdit('')
     }
 };
 
@@ -91,7 +88,7 @@ const changeFilter = newFilter => {
             <div className={style.list}>
                 <Button variant="outline-primary" onClick={handleShow}>Add Task</Button>
             </div>
-            <MyModal isOpen={show} isClose={handleClose} idEdit={idEdit}/>
+            {show && <MyModal isOpen={show} isClose={handleClose} idEdit={idEdit}/>}
             <ListGroup as="ol" numbered>
                 {filteredTasks().map(task => (
                     <TaskItem
